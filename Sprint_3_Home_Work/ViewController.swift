@@ -46,6 +46,7 @@ class ViewController: UIViewController {
         self.textLabelScroll.backgroundColor = .gray
         self.textLabelScroll.isSelectable = false
         self.textLabelScroll.isScrollEnabled = true
+        self.textLabelScroll.text = "История изменений \n"
         
         
     }
