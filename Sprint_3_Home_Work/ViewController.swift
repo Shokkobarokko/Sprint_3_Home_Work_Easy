@@ -37,8 +37,8 @@ class ViewController: UIViewController {
         dateFormatter.locale = Locale.current
         self.textLabel.text = String(self.counter)
         self.textLabel.center.x = view.center.x
-        self.buttonIncrease.backgroundColor = .blue
-        self.buttonDecrase.backgroundColor = .red
+        self.buttonIncrease.backgroundColor = .red
+        self.buttonDecrase.backgroundColor = .blue
         self.buttonIncrease.tintColor = .white
         self.buttonDecrase.tintColor = .white
         self.buttonZero.backgroundColor = .systemGray
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
     @IBAction func buttonPressIncrease(_ sender: UIButton) {
         self.counter += 1
         self.textLabel.text = "Значение счетчика \(counter)"
-        self.textLabelScroll.text.append("["+dateFormatter.string(from: self.currentDate)+"]" + " Значение счетчика \(counter)\n")
+        self.textLabelScroll.text.append("["+dateFormatter.string(from: self.currentDate)+"]:" + " Значение счетчика \(counter)\n")
     }
     
     
@@ -62,16 +62,16 @@ class ViewController: UIViewController {
         if counter > 0{
             self.counter -= 1
             self.textLabel.text = "Значение счетчика \(counter)"
-            self.textLabelScroll.text.append("["+dateFormatter.string(from: self.currentDate) + "]" + " Значение счетчика \(counter)\n")
+            self.textLabelScroll.text.append("["+dateFormatter.string(from: self.currentDate) + "]:" + " Значение счетчика \(counter)\n")
         }else if counter == 0 {
-            self.textLabelScroll.text.append("["+dateFormatter.string(from: self.currentDate) + "]" + " попытка уменьшить значение счётчика ниже 0 \n")
+            self.textLabelScroll.text.append("["+dateFormatter.string(from: self.currentDate) + "]:" + " попытка уменьшить значение счётчика ниже 0 \n")
         }
         
     }
     @IBAction func buttonPressZero(_ sender: UIButton) {
         self.counter = 0
         self.textLabel.text = "Значение счетчика \(counter)"
-        self.textLabelScroll.text.append("["+dateFormatter.string(from: self.currentDate) + "]" + " Значение сброшено \n")
+        self.textLabelScroll.text.append("["+dateFormatter.string(from: self.currentDate) + "]:" + " Значение сброшено \n")
     }
     
 }
