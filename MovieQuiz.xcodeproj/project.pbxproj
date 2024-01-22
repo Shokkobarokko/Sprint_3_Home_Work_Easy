@@ -16,7 +16,6 @@
 		AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5EE5DD284D7887003966EF /* UIColor+Extensions.swift */; };
 		AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD77F5732857F8810062FB14 /* Date+Extensions.swift */; };
 		AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7AFA542836189F00399704 /* Array+Extensions.swift */; };
-		FC69326A2B5EF8B600D2B434 /* MovieQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6932692B5EF8B600D2B434 /* MovieQuizViewController.swift */; };
 		FCBD95C52B55B5AC00FEA529 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCBD95C32B55B5AC00FEA529 /* YS Display-Medium.ttf */; };
 		FCBD95C62B55B5AC00FEA529 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCBD95C42B55B5AC00FEA529 /* YS Display-Bold.ttf */; };
 /* End PBXBuildFile section */
@@ -33,7 +32,6 @@
 		AD5EE5DD284D7887003966EF /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		AD77F5732857F8810062FB14 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		AD7AFA542836189F00399704 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
-		FC6932692B5EF8B600D2B434 /* MovieQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovieQuizViewController.swift; path = ../../../Dublicat/MovieQuizViewController.swift; sourceTree = "<group>"; };
 		FCBD95C32B55B5AC00FEA529 /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
 		FCBD95C42B55B5AC00FEA529 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,7 +51,6 @@
 			isa = PBXGroup;
 			children = (
 				AD1ABAB52831907B00B3E448 /* MovieQuizViewController.swift */,
-				FC6932692B5EF8B600D2B434 /* MovieQuizViewController.swift */,
 				AD1ABAB72831907B00B3E448 /* Main.storyboard */,
 			);
 			path = Presentation;
@@ -204,7 +201,6 @@
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
 				AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */,
 				AD1ABAB22831907B00B3E448 /* AppDelegate.swift in Sources */,
-				FC69326A2B5EF8B600D2B434 /* MovieQuizViewController.swift in Sources */,
 				AD1ABAB42831907B00B3E448 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
