@@ -14,7 +14,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     @IBOutlet private var yesButton: UIButton!
     
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView! 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     
     // MARK: - Varible
     // Счетчик вопросов
@@ -25,10 +26,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     //Общее количество вопросов для Квиза
     private let questionsAmount = 10
     //Фабрика вопросов
-    private var questionFactory: QuestionFactoryProtocol = QuestionFactory()
+    private var questionFactory: QuestionFactoryProtocol?
     //Вопрос который видит пользователь
     private var currentQuestion: QuizQuestion?
     private var statisticService: StatisticService?
+    private var alertPresenter:AlertPresenter?
     
     
     
@@ -43,12 +45,18 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         let questionFactory = QuestionFactory()
-        questionFactory.setup(delegate: self)
+        questionFactory.delegate = self
         self.questionFactory = questionFactory
+        questionFactory.moviesLoader = MoviesLoader()
         
-        questionFactory.requestNextQuestion()
+        let alertPresenter = AlertPresenter()
+        alertPresenter.viewController = self
+        self.alertPresenter = alertPresenter
         
         statisticService = StatisticServiceImplementation()
+        
+        questionFactory.loadData()
+        showLoadingIndicator()
         
         
         
@@ -71,10 +79,17 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     
-    //Метод конвертации из моковых данных
-    private func convert(model: QuizQuestion) -> QuizStepViewModel{
-        let questionStep = QuizStepViewModel(image: UIImage(named: model.image) ?? UIImage(), question: model.text, questionNumber: "\(currentQuestionIndex+1)/\(questionsAmount)")
-        return questionStep
+//    //Метод конвертации из моковых данных
+//    private func convert(model: QuizQuestion) -> QuizStepViewModel{
+//        let questionStep = QuizStepViewModel(image: UIImage(named: model.image) ?? UIImage(), question: model.text, questionNumber: "\(currentQuestionIndex+1)/\(questionsAmount)")
+//        return questionStep
+//    }
+    
+    private func convert(model: QuizQuestion) -> QuizStepViewModel {
+        return QuizStepViewModel(
+            image: UIImage(data: model.image) ?? UIImage(),
+            question: model.text,
+            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
     
     
@@ -106,7 +121,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }else{
             currentQuestionIndex += 1
             
-            self.questionFactory.requestNextQuestion()
+            self.questionFactory?.requestNextQuestion()
             
         }
         
@@ -127,24 +142,61 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
         
         statisticService.store(correct: correctAnswers, total: questionsAmount)
+        
         let message = result.text + "\nКоличество сыгранных квизов: \(statisticService.gamesCount)\n" + "Рекорд: \(statisticService.bestGame.correct)/\(statisticService.bestGame.total) (\(statisticService.bestGame.date.dateTimeString))\n" + "Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%"
-        let alert = AlertModel(
+        
+        let alertModel = AlertModel(
             title: result.title,
             message: message,
-            buttonText: result.buttonText, completion: { [weak self] in guard let self = self else {return}
+            buttonText: result.buttonText,
+            completion: { [weak self] in
+                guard let self = self else { return }
                 
                 self.currentQuestionIndex = 0
                 self.correctAnswers = 0
-                self.questionFactory.requestNextQuestion()
                 
-            })
+                questionFactory?.requestNextQuestion()
+            }
+        )
         
-        
-        
-        
-        let alertPresent = AlertPresenter()
-        alertPresent.showAlert(viewController: self, model: alert)
+        alertPresenter?.show(alertModel: alertModel)
     }
+    
+    
+    private func showLoadingIndicator() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    private func hideLoadingIndicator() {
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
+    }
+    
+    
+    private func showNetworkError(message: String) {
+        hideLoadingIndicator()
+        
+        let alert = AlertModel(title: "Ошибка", message: message, buttonText: "Попробовать еще раз") { [weak self] in
+            guard let self = self else { return }
+            
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            
+            self.questionFactory?.requestNextQuestion()
+        }
+        
+        alertPresenter?.show(alertModel: alert)
+    }
+    
+    func didFailToLoadData(with error: Error) {
+        showNetworkError(message: error.localizedDescription) // возьмём в качестве сообщения описание ошибки
+    }
+    
+    func didLoadDataFromServer() {
+        activityIndicator.isHidden = true // скрываем индикатор загрузки
+        questionFactory?.requestNextQuestion()
+    } 
     
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
