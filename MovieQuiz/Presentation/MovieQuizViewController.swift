@@ -19,17 +19,17 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     
     // MARK: - Varible
     // Счетчик вопросов
-    private var currentQuestionIndex = 0
-    //Счетчик правильных ответов
-    private var correctAnswers = 0
-    private var isEnabled = true
-    //Общее количество вопросов для Квиза
-    private let questionsAmount = 10
-    //Фабрика вопросов
-    private var questionFactory: QuestionFactoryProtocol?
-    //Вопрос который видит пользователь
-    private var currentQuestion: QuizQuestion?
-    private var statisticService: StatisticService?
+//    private var currentQuestionIndex = 0
+//    //Счетчик правильных ответов
+//    private var correctAnswers = 0
+//    private var isEnabled = true
+//    //Общее количество вопросов для Квиза
+//    private let questionsAmount = 10
+//    //Фабрика вопросов
+//    private var questionFactory: QuestionFactoryProtocol?
+//    //Вопрос который видит пользователь
+//    private var currentQuestion: QuizQuestion?
+//    private var statisticService: StatisticService?
     private var alertPresenter:AlertPresenter?
     private var presenter: MovieQuizPresenter!
     
@@ -60,6 +60,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         imageView.image = step.image
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
+        imageView.layer.borderWidth = 0
         
         unblockButtons()
         
