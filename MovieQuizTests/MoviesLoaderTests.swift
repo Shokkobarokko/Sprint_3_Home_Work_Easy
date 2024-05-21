@@ -6,16 +6,16 @@
 //
 
 
-import XCTest // не забывайте импортировать фреймворк для тестирования
-@testable import MovieQuiz // импортируем приложение для тестирования
+import XCTest
+@testable import MovieQuiz
 
 struct StubNetworkClient: NetworkRouting {
     
-    enum TestError: Error { // тестовая ошибка
+    enum TestError: Error {
     case test
     }
     
-    let emulateError: Bool // этот параметр нужен, чтобы заглушка эмулировала либо ошибку сети, либо успешный ответ
+    let emulateError: Bool
     
     func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void) {
         if emulateError {
@@ -73,7 +73,7 @@ class MoviesLoaderTests: XCTestCase {
             // Then
             switch result {
             case .success(let movies):
-                // давайте проверим, что пришло, например, два фильма — ведь в тестовых данных их всего два
+                
                 XCTAssertEqual(movies.items.count, 2)
                 expectation.fulfill()
             case .failure(_):
