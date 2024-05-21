@@ -30,7 +30,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
 //    //Вопрос который видит пользователь
 //    private var currentQuestion: QuizQuestion?
 //    private var statisticService: StatisticService?
-    private var alertPresenter:AlertPresenter?
+    private var alertPresenter:AlertPresenterProtocol?
     private var presenter: MovieQuizPresenter!
     
     

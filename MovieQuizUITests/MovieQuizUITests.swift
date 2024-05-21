@@ -7,7 +7,7 @@
 
 import XCTest
 
-import XCTest
+
 
 final class MovieQuizUITests: XCTestCase {
     
